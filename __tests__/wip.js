@@ -204,7 +204,7 @@ export const testMoviePlayerWidget = async (page, id) => {
 
 
 export const testPlotWidgets = async (page, widget, expectedGElements) => {
-  await wait4selector(page, `div[id="${widget}"]`, { visible: true, timeout: 15000 }); 
+  await wait4selector(page, `div[id="${widget}"]`, { visible: true, timeout: 5000 }); 
   expect(
     await page.evaluate(async selector => $(selector)[0].getElementsByClassName("legendtoggle").length, `#${widget}`)
   ).toBe(expectedGElements)

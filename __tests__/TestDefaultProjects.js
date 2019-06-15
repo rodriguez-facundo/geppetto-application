@@ -44,7 +44,7 @@ describe('Test UI Components', () => {
       })
 
       it('Right amount of graph elements for Plot1 2', async () => {
-        await page.waitFor(1000);
+        await page.waitFor(1500);
       })
 
       it('Right amount of graph elements for Plot1 3', async () => {

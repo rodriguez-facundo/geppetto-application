@@ -19,7 +19,9 @@ describe('Test UI Components', () => {
   beforeAll(async () => {
     jest.setTimeout(30000);
     // page = await browser.newPage();
+    
     await page.goto(getUrlFromProjectId(1));
+    
   });
 
   afterAll(async () => {

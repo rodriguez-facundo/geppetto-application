@@ -1,9 +1,5 @@
 language: node_js
-# os: linux
 sudo: required
-# dist: trusty
-# group: deprecated-2017Q4
-# bundler_args: --retry 5
 node_js:
   - "9"
 env:
@@ -14,35 +10,13 @@ env:
     - CONTAINER_NAME: geppetto_container
     - DEFAULT_BRANCH: development
     - LANDING_PAGE: "http://localhost:8080/org.geppetto.frontend"
-before_install:
-- sudo apt-get install -y xserver-xorg-dev libxext-dev libxi-dev 
+# before_install:
+# - sudo apt-get install -y xserver-xorg-dev libxext-dev libxi-dev 
 install:
   - npm install jest@24.8.0 jest-puppeteer@3.9.0 puppeteer@1.17.0 eslint-plugin-jest@22.6.4 babel-preset-env@1.6.0 url-join@4.0.0
-# - npm config set registry http://registry.npmjs.org/
-
 services:
   - docker
-# addons:
-#   apt:
-#     packages:
-#     - mesa-utils
-#     - xvfb
-#     - libgl1-mesa-dri
-#     - libglapi-mesa
-#     - libosmesa6
-#     - net-tools
-#     - lsof
-before_script:
-  # - "export DISPLAY=:99.0"
-  # - "sh -e /etc/init.d/xvfb start"
-  # - export SLIMERJSLAUNCHER=/home/travis/firefox-58.0/firefox/firefox
-  # - export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
 script:
-  # - npm config set registry http://registry.npmjs.org/
-  # - echo "Current time :$(date +"%T")"
-  # - docker --version 
-  # - cd $TRAVIS_BUILD_DIR/tests/casperjs
-  # - echo "$TRAVIS_BRANCH"
   - docker pull frodriguez4600/geppetto:latest
   - docker tag frodriguez4600/geppetto:latest $IMAGE_NAME
   # - travis_retry docker build -t=$IMAGE_NAME --build-arg targetBranch=$TRAVIS_BRANCH --build-arg originBranch=$TRAVIS_PULL_REQUEST_BRANCH --build-arg defaultBranch=$DEFAULT_BRANCH $DOCKER_FOLDER
@@ -53,7 +27,7 @@ script:
   - echo "$http_status"
   - while [ "$http_status" == "404" ]; do
       echo "Restart run. Printing logs for debugging purposes";
-      sudo docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc;
+      docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc;
       tail -n 200 /etc/log.log;
       docker stop $(docker ps -a -q);
       sleep 10;
@@ -66,12 +40,10 @@ script:
       echo "Done restarting $http_status";
     done;
   - "curl -s -I $1 $LANDING_PAGE | grep HTTP/1.1 | awk {'print $2'}"
-  - npm test --url=$LANDING_PAGE
-  # - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24"  casperjs test --includes=utilities/TestsUtility.js UIComponentsTests.js --host=http://localhost:28081/ --engine=slimerjs  
-  # - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24"  casperjs test --includes=utilities/TestsUtility.js GeppettoModelTests.js --host=http://localhost:28081/ --engine=slimerjs 
-  # - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24"  casperjs test --includes=utilities/TestsUtility.js,NeuronalTestsLogic.js DefaultProjectsTests.js --host=http://localhost:28081/ --engine=slimerjs  
+  - npm test -- --verbose --colors
   - docker ps -a;
-  - sudo docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc
+  - docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc
+  # - sudo docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc
   - tail /etc/log.log -n 200
   - docker stop $(docker ps -a -q)
   - docker rm $(docker ps -a -q)

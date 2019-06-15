@@ -12,7 +12,7 @@ Test () {
 			else
 				echo "Waiting for docker to finish building.";
 				iterations=$((iterations+1))
-  				sleep 1
+  				sleep 10
   				Test
 			fi
 		fi

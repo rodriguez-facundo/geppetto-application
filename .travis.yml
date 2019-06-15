@@ -44,7 +44,7 @@ script:
   # - cd $TRAVIS_BUILD_DIR/tests/casperjs
   # - echo "$TRAVIS_BRANCH"
   - docker pull frodriguez4600/geppetto:latest
-  - docker tag frodriguez4600/geppetto:latest $DOCKER_IMAGE
+  - docker tag frodriguez4600/geppetto:latest $IMAGE_NAME
   # - travis_retry docker build -t=$IMAGE_NAME --build-arg targetBranch=$TRAVIS_BRANCH --build-arg originBranch=$TRAVIS_PULL_REQUEST_BRANCH --build-arg defaultBranch=$DEFAULT_BRANCH $DOCKER_FOLDER
   - travis_retry docker run  -t -dit --name=$CONTAINER_NAME -p 28081:8080 $IMAGE_NAME
   - bash $TRAVIS_BUILD_DIR/tests/casperjs/utilities/test_geppetto_server.sh

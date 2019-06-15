@@ -42,7 +42,7 @@ describe('Test UI Components', () => {
 
     describe('Widgets', () => {
       it('Right amount of graph elements for Plot1', async () => {
-        await wait4selector('div[id="Plot1"]', { visible: true, timeout: 5000 }); 
+        await wait4selector('div[id="Plot1"]', { visible: true, timeout: 10000 }); 
         await page.waitFor(1000);
         await testPlotWidgets("Plot1", 1);
       })

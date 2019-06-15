@@ -66,7 +66,7 @@ export const testCameraPosition = async expectedCamPosition => {
   const camPosition = await page.evaluate(async () => Canvas1.engine.camera.position.toArray());
 
   camPosition.forEach((value, index) => {
-    expect(value).toBeCloseTo(expectedCamPosition[index], 2)
+    expect(value).toBeCloseTo(expectedCamPosition[index], 1)
   })
 }
 

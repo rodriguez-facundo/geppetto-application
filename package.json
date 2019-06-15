@@ -22,7 +22,8 @@
     "jest": "24.8.0",
     "jest-puppeteer": "3.9.0",
     "puppeteer": "1.17.0",
-    "eslint-plugin-jest": "22.6.4"
+    "eslint-plugin-jest": "22.6.4",
+    "babel-preset-env": "1.6.0"
   },
   "buildOptions": {
     "emitEntryPoint": true,

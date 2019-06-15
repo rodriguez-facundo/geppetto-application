@@ -17,6 +17,7 @@ env:
 before_install:
 - sudo apt-get install -y xserver-xorg-dev libxext-dev libxi-dev 
 install:
+  - npm install jest@24.8.0 jest-puppeteer@3.9.0 puppeteer@1.17.0 eslint-plugin-jest@22.6.4
 # - npm config set registry http://registry.npmjs.org/
 
 services:
@@ -49,8 +50,7 @@ script:
   - http_status=$(curl -s -I $1 $LANDING_PAGE | grep HTTP/1.1 | awk {'print $2'})
   - echo "$http_status"
   - while [ "$http_status" == "404" ]; do
-      echo "Restart run";
-      echo "Printing logs for debugging purposes";
+      echo "Restart run. Printing logs for debugging purposes";
       sudo docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc;
       tail -n 200 /etc/log.log;
       docker stop $(docker ps -a -q);
@@ -61,11 +61,10 @@ script:
       bash $TRAVIS_BUILD_DIR/tests/casperjs/utilities/test_geppetto_server.sh;
       sleep 60;
       http_status=$(curl -s -I $1 $LANDING_PAGE | grep HTTP/1.1 | awk {'print $2'});
-      echo "Done restarting";
-      echo "$http_status";
+      echo "Done restarting $http_status";
     done;
   - "curl -s -I $1 $LANDING_PAGE | grep HTTP/1.1 | awk {'print $2'}"
-  - npm test 
+  - npm test --url=$LANDING_PAGE
   # - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24"  casperjs test --includes=utilities/TestsUtility.js UIComponentsTests.js --host=http://localhost:28081/ --engine=slimerjs  
   # - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24"  casperjs test --includes=utilities/TestsUtility.js GeppettoModelTests.js --host=http://localhost:28081/ --engine=slimerjs 
   # - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24"  casperjs test --includes=utilities/TestsUtility.js,NeuronalTestsLogic.js DefaultProjectsTests.js --host=http://localhost:28081/ --engine=slimerjs  

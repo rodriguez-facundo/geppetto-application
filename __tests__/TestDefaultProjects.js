@@ -225,7 +225,7 @@ describe('Test UI Components', () => {
     describe('Camera Controls on main Canvas and Canvas widget', () => {
       it('Canvas widget has hhcell', async () => {
         await testCameraControlsWithCanvasWidget(page, [0, 0, 30.90193733102435])
-      }, 60000)
+      }, 120000)
     })
 
     describe('Color Function', () => {

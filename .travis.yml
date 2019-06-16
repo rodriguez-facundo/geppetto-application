@@ -14,7 +14,7 @@ services:
   - docker
   - xvfb
 install:
-  - npm install jest-puppeteer@3.9.0  url-join@4.0.0
+  - npm install jest@24.8.0 jest-puppeteer@3.9.0  url-join@4.0.0
   # - npm install jest@24.8.0 puppeteer@1.17.0 jest-puppeteer@3.9.0  eslint-plugin-jest@22.6.4 babel-preset-env@1.6.0 url-join@4.0.0
 script:
   - docker pull frodriguez4600/geppetto:latest

@@ -1,10 +1,14 @@
 module.exports = { 
   launch: { 
-    headless: true,
-    args: [
-      '--proxy-server="direct://"',
-      '--proxy-bypass-list=*',
-      '--no-sandbox'
-    ]
+    headless: false,
+    
   }, 
 }
+// args: [
+//   '--proxy-server="direct://"',
+//   '--proxy-bypass-list=*',
+//   '--no-sandbox',
+//   '--allow-http-background-page',
+//   '--allow-insecure-localhost',
+//   '--ignore-autoplay-restrictions'
+// ]

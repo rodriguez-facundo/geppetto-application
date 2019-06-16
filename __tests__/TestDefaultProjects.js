@@ -218,7 +218,7 @@ describe('Test UI Components', () => {
 
     describe('Color Function', () => {
       it('More than one color function instance found.', async () => {
-        const  initialColorFunctions =  await page.evaluate(async () => GEPPETTO.SceneController.getColorFunctionInstances().length)
+        const initialColorFunctions = await page.evaluate(async () => GEPPETTO.SceneController.getColorFunctionInstances().length)
         await page.evaluate(async () => {
           GEPPETTO.SceneController.addColorFunction(GEPPETTO.ModelFactory.instances.getInstance(GEPPETTO.ModelFactory.getAllPotentialInstancesEndingWith('.v'),false), window.voltage_color);
           Project.getActiveExperiment().play({ step:10 });
@@ -232,6 +232,7 @@ describe('Test UI Components', () => {
     describe('Widgets stored in View', () => {
       it('Reload page', async () => {
         // TODO? / FIXME? / OK?: I thought casper test was reloading the page at this point, but it is not.
+         
         // await page.reload();
         await wait4selector(page, ST.SPINNER_SELECTOR, { hidden: true })
       })
@@ -256,7 +257,7 @@ describe('Test UI Components', () => {
 
       it('Popup1 message restored correctly.', async () => {
         expect(
-          await page.evaluate(async (selector) => $(selector).html(), ST.POPUP_1_SELECTOR)
+          await page.evaluate(async selector => $(selector).html(), ST.POPUP_1_SELECTOR)
         ).toBe("Hhcell popup")
       })
 
@@ -268,7 +269,7 @@ describe('Test UI Components', () => {
       
       it('Canvas2 hhcell set correctly', async () => {
         expect(
-          await page.evaluate(async (selector) => !!Canvas1.engine.meshes["hhcell.hhpop[0]"], ST.HHCELL_SELECTOR)
+          await page.evaluate(async selector => !!Canvas1.engine.meshes[selector], ST.HHCELL_SELECTOR)
         ).toBeTruthy()
       })
     })

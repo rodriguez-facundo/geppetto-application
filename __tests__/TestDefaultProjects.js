@@ -10,7 +10,7 @@ import {
   testInitialControlPanelValues, 
   testMeshVisibility,
   testCameraControlsWithCanvasWidget
-} from './wip';
+} from './functions';
 import * as ST from './selectors';
 
 
@@ -33,7 +33,6 @@ describe('Test UI Components', () => {
       })
       
       it.each(ST.ELEMENTS_IN_LANDING_PAGE)('%s', async (msg, selector) => {
-        // console.log(page.url())
         await wait4selector(page, selector, { visible: true, timeout: 10000 })
       })
     })
@@ -134,7 +133,7 @@ describe('Test UI Components', () => {
       
       it('Remove all plots.', async () => {
         await click(page, ST.PROJECT_FILTER_BUTTON_SELECTOR);
-        removeAllPlots(page, );
+        await removeAllPlots(page, );
       })
 
       it('Correct amount of rows for Global filter.', async () => {
@@ -162,7 +161,6 @@ describe('Test UI Components', () => {
       })  
         
       it('Spotlight button exists4', async () => {
-        
         await page.waitForSelector(ST.SPOT_LIGHT_SELECTOR, { visible: true });
       })
 

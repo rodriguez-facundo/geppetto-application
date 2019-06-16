@@ -176,11 +176,10 @@ export const testCameraControlsWithCanvasWidget = async (page, expectedCameraPos
   ];
 
   await asyncForEach(scheduler, async ([repetitions, firstSelector, secondSelector]) => {
-    await asyncForEach(Array(repetitions), async () => {
+    for (let i in Array(repetitions).fill(1)) {
       await page.click(firstSelector);
       await page.click(secondSelector);
-    })
-      
+    }
     await resetCameraTest(page, expectedCameraPosition);
   })
 

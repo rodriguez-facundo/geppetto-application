@@ -32,7 +32,6 @@ describe('Test UI Components', () => {
     describe('Landing page', () => {
       it("Spinner goes away", async () => {
         await wait4selector(page, ST.SPINNER_SELECTOR, { hidden: true })
-        page.bringToFront()
       })
       
       it.each(ST.ELEMENTS_IN_LANDING_PAGE)('%s', async (msg, selector) => {

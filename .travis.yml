@@ -10,12 +10,12 @@ env:
     - CONTAINER_NAME: geppetto_container
     - DEFAULT_BRANCH: development
     - LANDING_PAGE: "http://localhost:8080/org.geppetto.frontend"
-install:
-  - npm install -g jest@24.8.0 jest-puppeteer@3.9.0 puppeteer@1.17.0 eslint-plugin-jest@22.6.4 babel-preset-env@1.6.0 url-join@4.0.0
 services:
   - docker
   - xvfb
-
+install:
+  - npm install jest-puppeteer@3.9.0  url-join@4.0.0
+  # - npm install jest@24.8.0 puppeteer@1.17.0 jest-puppeteer@3.9.0  eslint-plugin-jest@22.6.4 babel-preset-env@1.6.0 url-join@4.0.0
 script:
   - docker pull frodriguez4600/geppetto:latest
   - docker tag frodriguez4600/geppetto:latest $IMAGE_NAME
@@ -39,8 +39,7 @@ script:
       http_status=$(curl -s -I $1 $LANDING_PAGE | grep HTTP/1.1 | awk {'print $2'});
       echo "Done restarting $http_status";
     done;
-  - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24" npm test -- --verbose --colors --runInBand
-  # -  -- --verbose --colors --runInBand
+  - travis_retry xvfb-run -a --server-args="-screen 0 1024x768x24" npm test -- --verbose --colors
   - docker ps -a;
   - sudo docker cp $CONTAINER_NAME:/home/developer/virgo/serviceability/logs/log.log /etc
   - tail /etc/log.log -n 200

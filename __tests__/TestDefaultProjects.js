@@ -15,10 +15,8 @@ import * as ST from './selectors';
 
 
 describe('Test UI Components', () => {
-  // let page
   beforeAll(async () => {
     jest.setTimeout(30000);
-    // page = await browser.newPage();
     
     await page.goto(getUrlFromProjectId(1));
     
